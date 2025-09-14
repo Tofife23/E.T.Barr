@@ -559,6 +559,32 @@
         align-items: stretch;
     }
 }
+
+
+.menu-category {
+    margin-bottom: 2rem;
+}
+
+.menu-category h4 {
+    color: #00FFFF;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.menu-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.menu-item-full {
+    color: #e8e8e8;
+    padding: 0.5rem;
+    background: rgba(124, 252, 0, 0.1);
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+}
+
     </style>
 </head>
 <body class="relative">
@@ -850,7 +876,145 @@
                         </div>
                     </div>
                 </div>
-                
+                <!-- Step 5: Vodní skluzavka -->
+<div class="story-step" id="step-5">
+    <div class="story-screen">
+        <div class="screen-header">
+            <h3 class="story-title">VODNÍ ATRAKCE</h3>
+        </div>
+        <div class="story-content">
+            <div class="story-image">
+                <div class="hologram-display">🌊</div>
+            </div>
+            <div class="story-text">
+                <p>Sklouzli jste se po 50metrové spirálové skluzavce! Voda má perfektní teplotu díky geotermálnímu systému stanice.</p>
+                <div class="alien-dialogue">
+                    <div class="dialogue-speaker">💧 VODNÍ SYSTÉM</div>
+                    <div class="dialogue-text">"Detekována vysoká úroveň endorfinů. Doporučuji odpočinek v relaxační zóně."</div>
+                </div>
+            </div>
+        </div>
+        <div class="story-choices">
+            <button class="choice-btn primary" onclick="nextStep(2)">
+                <i data-feather="coffee" class="choice-icon"></i>
+                Jít se občerstvit do kavárny
+            </button>
+            <button class="choice-btn secondary" onclick="nextStep(4)">
+                <i data-feather="moon" class="choice-icon"></i>
+                Odpočinout si v glampingu
+            </button>
+            <button class="choice-btn tertiary" onclick="completeMission()">
+                <i data-feather="check-circle" class="choice-icon"></i>
+                Dokončit průzkum
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Step 6: Holografické hry -->
+<div class="story-step" id="step-6">
+    <div class="story-screen">
+        <div class="screen-header">
+            <h3 class="story-title">HERNÍ ZÓNA</h3>
+        </div>
+        <div class="story-content">
+            <div class="story-image">
+                <div class="hologram-display">🎯</div>
+            </div>
+            <div class="story-text">
+                <p>Vyzkoušeli jste virtuální lukostřelbu v simulaci mimozemských lesů. Vaše skóre: 847 bodů!</p>
+                <div class="alien-dialogue">
+                    <div class="dialogue-speaker">🎮 HERNÍ AI</div>
+                    <div class="dialogue-text">"Excelentní výkon! Jste mezi top 10% hráči této galaxie. Odměna odeslána na váš účet."</div>
+                </div>
+            </div>
+        </div>
+        <div class="story-choices">
+            <button class="choice-btn primary" onclick="nextStep(2)">
+                <i data-feather="coffee" class="choice-icon"></i>
+                Oslavit úspěch v kavárně
+            </button>
+            <button class="choice-btn secondary" onclick="nextStep(4)">
+                <i data-feather="moon" class="choice-icon"></i>
+                Odpočinout v glampingu
+            </button>
+            <button class="choice-btn tertiary" onclick="completeMission()">
+                <i data-feather="check-circle" class="choice-icon"></i>
+                Ukončit návštěvu
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Step 7: Premium kabina -->
+<div class="story-step" id="step-7">
+    <div class="story-screen">
+        <div class="screen-header">
+            <h3 class="story-title">PREMIUM KABINA</h3>
+        </div>
+        <div class="story-content">
+            <div class="story-image">
+                <div class="hologram-display">⭐</div>
+            </div>
+            <div class="story-text">
+                <p>Vstoupili jste do luxusní kabiny s průhlednou kupolí. Nad vámi se rozprostírá nekonečné hvězdné pole...</p>
+                <div class="alien-dialogue">
+                    <div class="dialogue-speaker">🏨 KABINA AI</div>
+                    <div class="dialogue-text">"Vítejte v Suite Alpha. Klimatizace nastavena, projekce souhvězdí aktivována. Přeji krásnou noc."</div>
+                </div>
+            </div>
+        </div>
+        <div class="story-choices">
+            <button class="choice-btn primary" onclick="window.open('tel:+420123456789')">
+                <i data-feather="phone" class="choice-icon"></i>
+                Rezervovat tuto kabinu
+            </button>
+            <button class="choice-btn secondary" onclick="nextStep(8)">
+                <i data-feather="eye" class="choice-icon"></i>
+                Prohlédnout standardní kabinu
+            </button>
+            <button class="choice-btn tertiary" onclick="completeMission()">
+                <i data-feather="check-circle" class="choice-icon"></i>
+                Dokončit prohlídku
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Step 8: Standard kabina -->
+<div class="story-step" id="step-8">
+    <div class="story-screen">
+        <div class="screen-header">
+            <h3 class="story-title">STANDARD KABINA</h3>
+        </div>
+        <div class="story-content">
+            <div class="story-image">
+                <div class="hologram-display">🏕️</div>
+            </div>
+            <div class="story-text">
+                <p>I standardní kabina nabízí neuvěřitelný komfort - pohodlné lůžko, klimatizace a základní projekce hvězd.</p>
+                <div class="alien-dialogue">
+                    <div class="dialogue-speaker">🏨 RECEPČNÍ ANDROID</div>
+                    <div class="dialogue-text">"Standard kabiny jsou oblíbené pro rodiny. Máte zájem o rezervaci?"</div>
+                </div>
+            </div>
+        </div>
+        <div class="story-choices">
+            <button class="choice-btn primary" onclick="window.open('tel:+420123456789')">
+                <i data-feather="phone" class="choice-icon"></i>
+                Rezervovat standard kabinu
+            </button>
+            <button class="choice-btn secondary" onclick="nextStep(7)">
+                <i data-feather="star" class="choice-icon"></i>
+                Přece jen zkusit premium
+            </button>
+            <button class="choice-btn tertiary" onclick="completeMission()">
+                <i data-feather="check-circle" class="choice-icon"></i>
+                Zatím jen prohlídka
+            </button>
+        </div>
+    </div>
+</div>
                 <!-- Další kroky... -->
                 <div class="story-step" id="step-final">
                     <div class="story-screen">
@@ -862,7 +1026,7 @@
                                 <div class="hologram-display success">✅</div>
                             </div>
                             <div class="story-text">
-                                <p>Gratuluji! Úspěšně jste prozkoumali stanici E.T. Barrr. Nyní je čas učinit skutečnou rezervaci!</p>
+                                <p>Gratuluji! Úspěšně jste prozkoumali stanici E.T. Barrr.</p>
                                 <div class="mission-summary" id="mission-summary">
                                     <!-- Zde se zobrazí souhrn voleb -->
                                 </div>
@@ -1513,6 +1677,62 @@ function restartMission() {
         updateMissionStatus(0);
     }, 300);
 }
+
+// Continue to final step when mission is complete
+function completeMission() {
+    // Generate mission summary
+    const summary = generateMissionSummary();
+    const summaryElement = document.getElementById('mission-summary');
+    if (summaryElement) {
+        summaryElement.innerHTML = summary;
+    }
+    
+    nextStep('final');
+}
+
+function generateMissionSummary() {
+    let summary = '<h4>Souhrn vaší mise:</h4><ul>';
+    
+    if (missionData.visitedCafe) {
+        summary += '<li>✅ Navštívili jste kavárnu</li>';
+        if (missionData.drinkOrdered) {
+            summary += `<li>☕ Ochutnali jste ${missionData.drinkOrdered}</li>`;
+        }
+    }
+    
+    if (missionData.visitedPlayground) {
+        summary += '<li>✅ Prozkoumali jste rekreační sektor</li>';
+    }
+    
+    if (missionData.visitedGlamping) {
+        summary += '<li>✅ Navštívili jste glampingové moduly</li>';
+    }
+    
+    summary += '</ul>';
+    summary += '<p>Nyní máte kompletní představu o naší stanici!</p>';
+    
+    return summary;
+}
+
+// Additional step functions
+function explorePlayground() {
+    missionData.visitedPlayground = true;
+    missionData.choices.push('Prozkoumali rekreační sektor');
+    nextStep(5);
+}
+
+function exploreGlamping() {
+    missionData.visitedGlamping = true;
+    missionData.choices.push('Navštívili glampingové moduly');
+    nextStep(7);
+}
+
+// Auto-initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize first step
+    updateProgress(0);
+    updateMissionStatus(0);
+});
     </script>
 </body>
 </html>
