@@ -316,7 +316,7 @@
   <div class="container mx-auto px-4 sm:px-6">
     <div class="flex flex-col md:flex-row items-center md:items-start">
       <div class="w-full md:w-1/2 mb-10 md:mb-0 text-left" data-aos="fade-right">
-        <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 leading-tight text-left">
+        <h1 class="text-[4rem] sm:text-6xl md:text-7xl font-bold mb-6 leading-tight text-left">
           <span class="holographic-text block">E.T.Barrr</span>
           <span class="text-white block text-2xl sm:text-3xl">glampingová kavárna</span>
         </h1>
@@ -485,19 +485,20 @@
                 </div>
                 
                 <div>
-                    <h4 class="text-lg font-bold mb-4 text-green-400">Sledujte nás</h4>
-                    <div class="flex space-x-4 justify-start">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110">
-                            <i data-feather="facebook" class="w-5 h-5"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-600 hover:to-yellow-500 hover:text-white transition-all duration-300 transform hover:scale-110">
-                            <i data-feather="instagram" class="w-5 h-5"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-sky-400 hover:text-white transition-all duration-300 transform hover:scale-110">
-                            <i data-feather="twitter" class="w-5 h-5"></i>
-                        </a>
-                    </div>
-                </div>
+    <h4 class="text-lg font-bold mb-4 text-green-400">Sledujte nás</h4>
+    <div class="flex flex-row flex-wrap gap-4">
+        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110">
+            <i data-feather="facebook" class="w-5 h-5"></i>
+        </a>
+        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-600 hover:to-yellow-500 hover:text-white transition-all duration-300 transform hover:scale-110">
+            <i data-feather="instagram" class="w-5 h-5"></i>
+        </a>
+        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-sky-400 hover:text-white transition-all duration-300 transform hover:scale-110">
+            <i data-feather="twitter" class="w-5 h-5"></i>
+        </a>
+    </div>
+</div>
+
             </div>
             
             <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
@@ -532,10 +533,8 @@
             once: true
         });
         
-        window.onload = function() {
-  feather.replace();
-  displayOpeningHours();
-};
+        // Initialize Feather Icons
+        feather.replace();
         
         // Enhanced Navigation Scripts
         const navbar = document.getElementById('navbar');
@@ -671,6 +670,8 @@
             }
         }
 
+        // Initialize opening hours display
+        displayOpeningHours();
         
         // Add scroll effect to change lighting
         window.addEventListener('scroll', function() {
