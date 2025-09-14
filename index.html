@@ -398,7 +398,7 @@ section, .neon-border, .hover-glow, .bg-gray-900 {
     <section class="py-20 relative z-10 bg-black bg-opacity-70">
         <div class="container mx-auto px-6 text-center">
             <h2 class="text-4xl font-bold mb-8" data-aos="fade-up">
-                <span class="holographic-text">Připraveni na zážitek z budoucnosti?</span>
+                <span class="holographic-text">Připraveni na zážitek?</span>
             </h2>
             <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-10" data-aos="fade-up" data-aos-delay="100">
                 Rezervujte si návštěvu již dnes a zažijte jedinečnou kombinaci přírody a technologií.
@@ -418,20 +418,16 @@ section, .neon-border, .hover-glow, .bg-gray-900 {
                 <div>
                     <h3 class="text-2xl font-bold mb-6 holographic-text">E.T. Barrr</h3>
                     <p class="text-gray-400">
-                        Futuristická glamping kavárna kombinující přírodní pohodlí s technologiemi zítřka.
+                        Glampingová kavárna v srdci Obřan.
                     </p>
                 </div>
                 
                 <div>
-                    <h4 class="text-lg font-bold mb-4 text-green-400">Navigace</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors">Domů</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors">O nás</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors">Menu</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors">Galerie</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-green-400 transition-colors">Kontakt</a></li>
-                    </ul>
-                </div>
+    <h4 class="text-lg font-bold mb-4 text-green-400">Otevírací doba</h4>
+    <div id="opening-hours" class="space-y-2">
+        <!-- Opening hours will be populated by JavaScript -->
+    </div>
+</div>
                 
                 <div>
                     <h4 class="text-lg font-bold mb-4 text-green-400">Kontakt</h4>
@@ -452,29 +448,25 @@ section, .neon-border, .hover-glow, .bg-gray-900 {
                 </div>
                 
                 <div>
-                    <h4 class="text-lg font-bold mb-4 text-green-400">Sledujte nás</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-green-400 transition-colors">
-                            <i data-feather="facebook" class="w-5 h-5"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-green-400 transition-colors">
-                            <i data-feather="instagram" class="w-5 h-5"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-green-400 transition-colors">
-                            <i data-feather="twitter" class="w-5 h-5"></i>
-                        </a>
-                    </div>
-                </div>
+    <h4 class="text-lg font-bold mb-4 text-green-400">Sledujte nás</h4>
+    <div class="flex space-x-4">
+        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110">
+            <i data-feather="facebook" class="w-5 h-5"></i>
+        </a>
+        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-600 hover:to-yellow-500 hover:text-white transition-all duration-300 transform hover:scale-110">
+            <i data-feather="instagram" class="w-5 h-5"></i>
+        </a>
+        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-sky-400 hover:text-white transition-all duration-300 transform hover:scale-110">
+            <i data-feather="twitter" class="w-5 h-5"></i>
+        </a>
+    </div>
+</div>
             </div>
             
             <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-500 text-sm mb-4 md:mb-0">
-                    © 2023 E.T. Barrr. Všechna práva vyhrazena.
+                    © 2025 E.T. Barrr. Všechna práva vyhrazena.
                 </p>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-500 hover:text-green-400 text-sm transition-colors">Ochrana osobních údajů</a>
-                    <a href="#" class="text-gray-500 hover:text-green-400 text-sm transition-colors">Podmínky použití</a>
-                </div>
             </div>
         </div>
     </footer>
@@ -561,25 +553,86 @@ section, .neon-border, .hover-glow, .bg-gray-900 {
                 feather.replace();
             });
         });
+        // Opening hours functionality
+const openingHours = {
+    1: "9:00 - 20:00", // Po-Út
+    2: "9:00 - 22:00", // St-Pá
+    3: "10:00 - 22:00", // Sobota
+    4: "10:00 - 20:00" // Neděle
+};
+
+const dayNames = {
+    1: "Po-Út", 
+    2: "St-Pá",
+    3: "Sobota",
+    4: "Neděle"
+};
+
+function isCurrentlyClosed(dayKey) {
+    const now = new Date();
+    const currentTime = now.getHours() * 60 + now.getMinutes(); // čas v minutách
+    
+    // Získání otevírací doby pro daný den
+    const hours = openingHours[dayKey];
+    const [openTime, closeTime] = hours.split(' - ');
+    
+    // Převod na minuty
+    const [openHour, openMin] = openTime.split(':').map(Number);
+    const [closeHour, closeMin] = closeTime.split(':').map(Number);
+    
+    const openInMinutes = openHour * 60 + openMin;
+    const closeInMinutes = closeHour * 60 + closeMin;
+    
+    // Kontrola, zda je aktuálně zavřeno
+    return currentTime < openInMinutes || currentTime >= closeInMinutes;
+}
+
+function getCurrentDayKey() {
+    const today = new Date().getDay();
+    
+    if (today === 1 || today === 2) return 1; // Po-Út
+    if (today >= 3 && today <= 5) return 2; // St-Pá
+    if (today === 6) return 3; // Sobota
+    if (today === 0) return 4; // Neděle
+    
+    return null;
+}
+
+function displayOpeningHours() {
+    const openingHoursElement = document.getElementById('opening-hours');
+    const today = new Date().getDay();
+    const currentDayKey = getCurrentDayKey();
+    
+    // Procházíme pouze klíče, které skutečně existují
+    for (let day = 1; day <= 4; day++) {
+        const dayElement = document.createElement('div');
         
-        // Create floating holograms that follow mouse
-        document.addEventListener('mousemove', function(e) {
-            const holograms = document.querySelectorAll('.hologram');
-            holograms.forEach((hologram, index) => {
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;
-                
-                // Add some delay based on index
-                const delay = index * 0.1;
-                
-                // Calculate new position with some parallax effect
-                const newX = e.clientX * (0.5 + delay * 0.1);
-                const newY = e.clientY * (0.5 + delay * 0.1);
-                
-                hologram.style.transform = `translate(${newX * 0.05}px, ${newY * 0.05}px)`;
-            });
-        });
+        // Určení, zda je aktuální den
+        let isToday = (day === currentDayKey);
         
+        // Určení barvy podle stavu
+        let colorClass = 'text-gray-400';
+        if (isToday) {
+            if (isCurrentlyClosed(day)) {
+                colorClass = 'text-red-400 font-semibold'; // Červeně pokud je zavřeno
+            } else {
+                colorClass = 'text-green-400 font-semibold'; // Zeleně pokud je otevřeno
+            }
+        }
+        
+        dayElement.className = `flex justify-between items-center ${colorClass}`;
+        
+        dayElement.innerHTML = `
+            <span>${dayNames[day]}:</span>
+            <span>${openingHours[day]}</span>
+        `;
+        
+        openingHoursElement.appendChild(dayElement);
+    }
+}
+
+// Initialize opening hours display
+displayOpeningHours();
         // Add scroll effect to change lighting
         window.addEventListener('scroll', function() {
             const scrollPosition = window.scrollY;
