@@ -199,6 +199,17 @@
             box-shadow: 0 0 20px rgba(124, 252, 0, 0.4);
             transform: rotate(90deg);
         }
+        /* aby se hologramy necpaly přes texty */
+section, .neon-border, .hover-glow, .bg-gray-900 {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* hologramy necháme pod */
+.hologram {
+    z-index: 0;
+}
     </style>
 </head>
 <body class="relative">
