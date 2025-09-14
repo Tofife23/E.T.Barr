@@ -14,11 +14,48 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
         
-        body {
+        /* MOBILE FIX - Hlavní kontejner */
+        html, body {
             font-family: 'Space Grotesk', sans-serif;
             background-color: #1a1a1a;
             color: #e8e8e8;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Zamezí horizontálnímu scrollování */
+            width: 100%;
+            max-width: 100vw; /* Omezí na šířku viewport */
+        }
+        
+        /* MOBILE FIX - Všechny kontejnery */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 100vw;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        /* MOBILE FIX - Responsive kontejnery */
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+            
+            /* Omezení pro texty na mobilu */
+            h1 {
+                font-size: 2.5rem !important;
+                line-height: 1.1 !important;
+            }
+            
+            .text-5xl, .text-7xl {
+                font-size: 2.5rem !important;
+            }
+            
+            .text-4xl {
+                font-size: 1.875rem !important;
+            }
         }
         
         .holographic-text {
@@ -169,47 +206,47 @@
             background: rgba(124, 252, 0, 0.2);
             box-shadow: 0 0 20px rgba(124, 252, 0, 0.4);
             transform: rotate(90deg);
-        }: left 0.6s ease;
         }
 
-        .reservation-btn:hover::before {
-            left: 100%;
-        }
-
-        .reservation-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(124, 252, 0, 0.5);
-        }
-
-        .menu-toggle {
-            position: relative;
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 50%;
-            background: rgba(124, 252, 0, 0.1);
-            border: 1px solid rgba(124, 252, 0, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .menu-toggle:hover {
-            background: rgba(124, 252, 0, 0.2);
-            box-shadow: 0 0 20px rgba(124, 252, 0, 0.4);
-            transform: rotate(90deg);
-        }
         /* aby se hologramy necpaly přes texty */
-section, .neon-border, .hover-glow, .bg-gray-900 {
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
+        section, .neon-border, .hover-glow, .bg-gray-900 {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
 
-/* hologramy necháme pod */
-.hologram {
-    z-index: 0;
-}
+        /* hologramy necháme pod */
+        .hologram {
+            z-index: 0;
+        }
+        
+        /* MOBILE FIX - Flexbox kontejnery */
+        .flex {
+            min-width: 0; /* Umožní flex items zmenšit se pod jejich minimální velikost */
+        }
+        
+        /* MOBILE FIX - Obrázky */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* MOBILE FIX - Grid systém */
+        .grid {
+            width: 100%;
+        }
+        
+        /* MOBILE FIX - Buttons na mobilu */
+        @media (max-width: 640px) {
+            .flex.space-x-4 {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .flex.space-x-4 > * {
+                margin-left: 0 !important;
+            }
+        }
     </style>
 </head>
 <body class="relative">
@@ -223,11 +260,11 @@ section, .neon-border, .hover-glow, .bg-gray-900 {
     
     <!-- Enhanced Navigation -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-60 backdrop-blur-md border-b border-green-400 border-opacity-20 transition-all duration-300">
-        <div class="container mx-auto px-6 py-4">
+        <div class="container mx-auto px-4 sm:px-6 py-4">
             <div class="flex justify-between items-center">
                 <!-- Logo with enhanced styling -->
                 <a href="#" class="logo-container">
-                    <span class="text-2xl font-bold holographic-text">E.T. Barrr</span>
+                    <span class="text-xl sm:text-2xl font-bold holographic-text">E.T. Barrr</span>
                 </a>
                 
                 <!-- Desktop Navigation -->
@@ -275,18 +312,18 @@ section, .neon-border, .hover-glow, .bg-gray-900 {
     </nav>
     
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center z-10 pt-32">
-        <div class="container mx-auto px-6">
+    <section class="relative min-h-screen flex items-center justify-center z-10 pt-20 sm:pt-32">
+        <div class="container mx-auto px-4 sm:px-6">
             <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
-                    <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                <div class="w-full md:w-1/2 mb-10 md:mb-0 text-center md:text-left" data-aos="fade-right">
+                    <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-tight">
                         <span class="holographic-text">E.T.Barrr</span><br>
                         <span class="text-white">glampingová kavárna</span>
                     </h1>
-                    <p class="text-xl text-gray-300 mb-8 max-w-lg">
+                    <p class="text-lg sm:text-xl text-gray-300 mb-8 max-w-lg mx-auto md:mx-0">
                         Glampingová kavárna v Obřanech!
                     </p>
-                    <div class="flex space-x-4">
+                    <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4">
                         <button class="px-8 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full font-medium transition-all hover-glow">
                             Glamping
                         </button>
@@ -295,8 +332,8 @@ section, .neon-border, .hover-glow, .bg-gray-900 {
                         </button>
                     </div>
                 </div>
-                <div class="md:w-1/2" data-aos="fade-left">
-                    <div class="relative">
+                <div class="w-full md:w-1/2" data-aos="fade-left">
+                    <div class="relative max-w-lg mx-auto">
                         <img src="http://static.photos/nature/1200x630/42" alt="Futuristická kavárna" class="rounded-2xl w-full neon-border floating">
                     </div>
                 </div>
@@ -305,9 +342,9 @@ section, .neon-border, .hover-glow, .bg-gray-900 {
     </section>
     
     <!-- Features Section -->
-    <section class="py-20 relative z-10 bg-black bg-opacity-70 w-full">
-        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-16" data-aos="fade-up">
+    <section class="py-16 sm:py-20 relative z-10 bg-black bg-opacity-70 w-full">
+        <div class="container mx-auto px-4 sm:px-6">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16" data-aos="fade-up">
                 <span class="holographic-text">Naše unikátní nabídka</span>
             </h2>
             
@@ -320,7 +357,6 @@ section, .neon-border, .hover-glow, .bg-gray-900 {
                     <h3 class="text-xl sm:text-2xl font-bold mb-4 text-green-400">Mimozemská kavárna</h3>
                     <p class="text-gray-300 text-sm sm:text-base">
                         Degustujte naše speciální nápoje připravené s využitím mimozemské pomoci. 
-                        
                     </p>
                 </div>
                 
@@ -351,9 +387,9 @@ section, .neon-border, .hover-glow, .bg-gray-900 {
     </section>
     
     <!-- Gallery Preview -->
-    <section class="py-20 relative z-10">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16" data-aos="fade-up">
+    <section class="py-16 sm:py-20 relative z-10">
+        <div class="container mx-auto px-4 sm:px-6">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16" data-aos="fade-up">
                 <span class="holographic-text">Nahlédněte do našeho světa</span>
             </h2>
             
@@ -361,27 +397,27 @@ section, .neon-border, .hover-glow, .bg-gray-900 {
                 <div class="relative rounded-2xl overflow-hidden h-80" data-aos="fade-up" data-aos-delay="100">
                     <img src="http://static.photos/nature/640x360/1" alt="Interiér kavárny" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <h3 class="text-xl font-bold text-white">Futuristický interiér</h3>
-                        <p class="text-gray-300">Kombinace přírodních materiálů a high-tech prvků</p>
+                    <div class="absolute bottom-0 left-0 p-4 sm:p-6">
+                        <h3 class="text-lg sm:text-xl font-bold text-white">Futuristický interiér</h3>
+                        <p class="text-sm sm:text-base text-gray-300">Kombinace přírodních materiálů a high-tech prvků</p>
                     </div>
                 </div>
                 
                 <div class="relative rounded-2xl overflow-hidden h-80" data-aos="fade-up" data-aos-delay="200">
                     <img src="http://static.photos/people/640x360/2" alt="Dětské hřiště" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <h3 class="text-xl font-bold text-white">Venkovní hřiště</h3>
-                        <p class="text-gray-300">Interaktivní zábava pro děti všech věkových kategorií</p>
+                    <div class="absolute bottom-0 left-0 p-4 sm:p-6">
+                        <h3 class="text-lg sm:text-xl font-bold text-white">Venkovní hřiště</h3>
+                        <p class="text-sm sm:text-base text-gray-300">Interaktivní zábava pro děti všech věkových kategorií</p>
                     </div>
                 </div>
                 
                 <div class="relative rounded-2xl overflow-hidden h-80" data-aos="fade-up" data-aos-delay="300">
                     <img src="http://static.photos/travel/640x360/3" alt="Venkovní prostor" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <h3 class="text-xl font-bold text-white">Přírodní prostředí</h3>
-                        <p class="text-gray-300">Relax v zeleni s futuristickými prvky</p>
+                    <div class="absolute bottom-0 left-0 p-4 sm:p-6">
+                        <h3 class="text-lg sm:text-xl font-bold text-white">Přírodní prostředí</h3>
+                        <p class="text-sm sm:text-base text-gray-300">Relax v zeleni s futuristickými prvky</p>
                     </div>
                 </div>
             </div>
@@ -395,15 +431,15 @@ section, .neon-border, .hover-glow, .bg-gray-900 {
     </section>
     
     <!-- CTA Section -->
-    <section class="py-20 relative z-10 bg-black bg-opacity-70">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold mb-8" data-aos="fade-up">
+    <section class="py-16 sm:py-20 relative z-10 bg-black bg-opacity-70">
+        <div class="container mx-auto px-4 sm:px-6 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-8" data-aos="fade-up">
                 <span class="holographic-text">Připraveni na zážitek?</span>
             </h2>
-            <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-10" data-aos="fade-up" data-aos-delay="100">
+            <p class="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto mb-10" data-aos="fade-up" data-aos-delay="100">
                 Rezervujte si návštěvu již dnes a zažijte jedinečnou kombinaci přírody a technologií.
             </p>
-            <div class="flex justify-center space-x-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="flex justify-center" data-aos="fade-up" data-aos-delay="200">
                 <button class="px-8 py-3 border border-green-500 text-green-500 hover:bg-green-500 hover:text-white rounded-full font-medium transition-all hover-glow">
                     Kontaktujte nás
                 </button>
@@ -413,9 +449,9 @@ section, .neon-border, .hover-glow, .bg-gray-900 {
     
     <!-- Footer -->
     <footer class="py-12 relative z-10 bg-black bg-opacity-90 border-t border-gray-800">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
-                <div>
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
+                <div class="sm:col-span-2 md:col-span-1">
                     <h3 class="text-2xl font-bold mb-6 holographic-text">E.T. Barrr</h3>
                     <p class="text-gray-400">
                         Glampingová kavárna v srdci Obřan.
@@ -423,44 +459,44 @@ section, .neon-border, .hover-glow, .bg-gray-900 {
                 </div>
                 
                 <div>
-    <h4 class="text-lg font-bold mb-4 text-green-400">Otevírací doba</h4>
-    <div id="opening-hours" class="space-y-2">
-        <!-- Opening hours will be populated by JavaScript -->
-    </div>
-</div>
+                    <h4 class="text-lg font-bold mb-4 text-green-400">Otevírací doba</h4>
+                    <div id="opening-hours" class="space-y-2">
+                        <!-- Opening hours will be populated by JavaScript -->
+                    </div>
+                </div>
                 
                 <div>
                     <h4 class="text-lg font-bold mb-4 text-green-400">Kontakt</h4>
-                    <ul class="space-y-2 text-gray-400">
+                    <ul class="space-y-2 text-gray-400 text-sm">
                         <li class="flex items-center">
-                            <i data-feather="map-pin" class="mr-2 w-4 h-4"></i>
+                            <i data-feather="map-pin" class="mr-2 w-4 h-4 flex-shrink-0"></i>
                             <span>Futuristická 42, Praha</span>
                         </li>
                         <li class="flex items-center">
-                            <i data-feather="phone" class="mr-2 w-4 h-4"></i>
+                            <i data-feather="phone" class="mr-2 w-4 h-4 flex-shrink-0"></i>
                             <span>+420 123 456 789</span>
                         </li>
                         <li class="flex items-center">
-                            <i data-feather="mail" class="mr-2 w-4 h-4"></i>
+                            <i data-feather="mail" class="mr-2 w-4 h-4 flex-shrink-0"></i>
                             <span>info@etbarrr.cz</span>
                         </li>
                     </ul>
                 </div>
                 
                 <div>
-    <h4 class="text-lg font-bold mb-4 text-green-400">Sledujte nás</h4>
-    <div class="flex space-x-4">
-        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110">
-            <i data-feather="facebook" class="w-5 h-5"></i>
-        </a>
-        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-600 hover:to-yellow-500 hover:text-white transition-all duration-300 transform hover:scale-110">
-            <i data-feather="instagram" class="w-5 h-5"></i>
-        </a>
-        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-sky-400 hover:text-white transition-all duration-300 transform hover:scale-110">
-            <i data-feather="twitter" class="w-5 h-5"></i>
-        </a>
-    </div>
-</div>
+                    <h4 class="text-lg font-bold mb-4 text-green-400">Sledujte nás</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110">
+                            <i data-feather="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-600 hover:to-yellow-500 hover:text-white transition-all duration-300 transform hover:scale-110">
+                            <i data-feather="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-sky-400 hover:text-white transition-all duration-300 transform hover:scale-110">
+                            <i data-feather="twitter" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
             
             <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
@@ -553,86 +589,88 @@ section, .neon-border, .hover-glow, .bg-gray-900 {
                 feather.replace();
             });
         });
+        
         // Opening hours functionality
-const openingHours = {
-    1: "9:00 - 20:00", // Po-Út
-    2: "9:00 - 22:00", // St-Pá
-    3: "10:00 - 22:00", // Sobota
-    4: "10:00 - 20:00" // Neděle
-};
+        const openingHours = {
+            1: "9:00 - 20:00", // Po-Út
+            2: "9:00 - 22:00", // St-Pá
+            3: "10:00 - 22:00", // Sobota
+            4: "10:00 - 20:00" // Neděle
+        };
 
-const dayNames = {
-    1: "Po-Út", 
-    2: "St-Pá",
-    3: "Sobota",
-    4: "Neděle"
-};
+        const dayNames = {
+            1: "Po-Út", 
+            2: "St-Pá",
+            3: "Sobota",
+            4: "Neděle"
+        };
 
-function isCurrentlyClosed(dayKey) {
-    const now = new Date();
-    const currentTime = now.getHours() * 60 + now.getMinutes(); // čas v minutách
-    
-    // Získání otevírací doby pro daný den
-    const hours = openingHours[dayKey];
-    const [openTime, closeTime] = hours.split(' - ');
-    
-    // Převod na minuty
-    const [openHour, openMin] = openTime.split(':').map(Number);
-    const [closeHour, closeMin] = closeTime.split(':').map(Number);
-    
-    const openInMinutes = openHour * 60 + openMin;
-    const closeInMinutes = closeHour * 60 + closeMin;
-    
-    // Kontrola, zda je aktuálně zavřeno
-    return currentTime < openInMinutes || currentTime >= closeInMinutes;
-}
+        function isCurrentlyClosed(dayKey) {
+            const now = new Date();
+            const currentTime = now.getHours() * 60 + now.getMinutes(); // čas v minutách
+            
+            // Získání otevírací doby pro daný den
+            const hours = openingHours[dayKey];
+            const [openTime, closeTime] = hours.split(' - ');
+            
+            // Převod na minuty
+            const [openHour, openMin] = openTime.split(':').map(Number);
+            const [closeHour, closeMin] = closeTime.split(':').map(Number);
+            
+            const openInMinutes = openHour * 60 + openMin;
+            const closeInMinutes = closeHour * 60 + closeMin;
+            
+            // Kontrola, zda je aktuálně zavřeno
+            return currentTime < openInMinutes || currentTime >= closeInMinutes;
+        }
 
-function getCurrentDayKey() {
-    const today = new Date().getDay();
-    
-    if (today === 1 || today === 2) return 1; // Po-Út
-    if (today >= 3 && today <= 5) return 2; // St-Pá
-    if (today === 6) return 3; // Sobota
-    if (today === 0) return 4; // Neděle
-    
-    return null;
-}
+        function getCurrentDayKey() {
+            const today = new Date().getDay();
+            
+            if (today === 1 || today === 2) return 1; // Po-Út
+            if (today >= 3 && today <= 5) return 2; // St-Pá
+            if (today === 6) return 3; // Sobota
+            if (today === 0) return 4; // Neděle
+            
+            return null;
+        }
 
-function displayOpeningHours() {
-    const openingHoursElement = document.getElementById('opening-hours');
-    const today = new Date().getDay();
-    const currentDayKey = getCurrentDayKey();
-    
-    // Procházíme pouze klíče, které skutečně existují
-    for (let day = 1; day <= 4; day++) {
-        const dayElement = document.createElement('div');
-        
-        // Určení, zda je aktuální den
-        let isToday = (day === currentDayKey);
-        
-        // Určení barvy podle stavu
-        let colorClass = 'text-gray-400';
-        if (isToday) {
-            if (isCurrentlyClosed(day)) {
-                colorClass = 'text-red-400 font-semibold'; // Červeně pokud je zavřeno
-            } else {
-                colorClass = 'text-green-400 font-semibold'; // Zeleně pokud je otevřeno
+        function displayOpeningHours() {
+            const openingHoursElement = document.getElementById('opening-hours');
+            const today = new Date().getDay();
+            const currentDayKey = getCurrentDayKey();
+            
+            // Procházíme pouze klíče, které skutečně existují
+            for (let day = 1; day <= 4; day++) {
+                const dayElement = document.createElement('div');
+                
+                // Určení, zda je aktuální den
+                let isToday = (day === currentDayKey);
+                
+                // Určení barvy podle stavu
+                let colorClass = 'text-gray-400';
+                if (isToday) {
+                    if (isCurrentlyClosed(day)) {
+                        colorClass = 'text-red-400 font-semibold'; // Červeně pokud je zavřeno
+                    } else {
+                        colorClass = 'text-green-400 font-semibold'; // Zeleně pokud je otevřeno
+                    }
+                }
+                
+                dayElement.className = `flex justify-between items-center ${colorClass}`;
+                
+                dayElement.innerHTML = `
+                    <span>${dayNames[day]}:</span>
+                    <span>${openingHours[day]}</span>
+                `;
+                
+                openingHoursElement.appendChild(dayElement);
             }
         }
-        
-        dayElement.className = `flex justify-between items-center ${colorClass}`;
-        
-        dayElement.innerHTML = `
-            <span>${dayNames[day]}:</span>
-            <span>${openingHours[day]}</span>
-        `;
-        
-        openingHoursElement.appendChild(dayElement);
-    }
-}
 
-// Initialize opening hours display
-displayOpeningHours();
+        // Initialize opening hours display
+        displayOpeningHours();
+        
         // Add scroll effect to change lighting
         window.addEventListener('scroll', function() {
             const scrollPosition = window.scrollY;
