@@ -312,34 +312,35 @@
     </nav>
     
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center z-10 pt-20 sm:pt-32">
-        <div class="container mx-auto px-4 sm:px-6">
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="w-full md:w-1/2 mb-10 md:mb-0 text-center md:text-left" data-aos="fade-right">
-                    <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                        <span class="holographic-text">E.T.Barrr</span><br>
-                        <span class="text-white">glampingová kavárna</span>
-                    </h1>
-                    <p class="text-lg sm:text-xl text-gray-300 mb-8 max-w-lg mx-auto md:mx-0">
-                        Glampingová kavárna v Obřanech!
-                    </p>
-                    <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4">
-                        <button class="px-8 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full font-medium transition-all hover-glow">
-                            Glamping
-                        </button>
-                        <button class="px-8 py-3 border border-green-500 text-green-500 hover:bg-green-500 hover:text-white rounded-full font-medium transition-all hover-glow">
-                            Menu
-                        </button>
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2" data-aos="fade-left">
-                    <div class="relative max-w-lg mx-auto">
-                        <img src="http://static.photos/nature/1200x630/42" alt="Futuristická kavárna" class="rounded-2xl w-full neon-border floating">
-                    </div>
-                </div>
-            </div>
+    <section class="relative min-h-screen flex items-center z-10 pt-20 sm:pt-32">
+  <div class="container mx-auto px-4 sm:px-6">
+    <div class="flex flex-col md:flex-row items-center md:items-start">
+      <div class="w-full md:w-1/2 mb-10 md:mb-0 text-left" data-aos="fade-right">
+        <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 leading-tight text-left">
+          <span class="holographic-text block">E.T.Barrr</span>
+          <span class="text-white block text-2xl sm:text-3xl">glampingová kavárna</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-300 mb-8 max-w-lg">
+          Glampingová kavárna v Obřanech!
+        </p>
+        <!-- FLEX ÚPRAVA: tlačítka budou vedle sebe už na mobilu -->
+        <div class="flex flex-row gap-4">
+          <button class="px-8 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full font-medium transition-all hover-glow">
+            Glamping
+          </button>
+          <button class="px-8 py-3 border border-green-500 text-green-500 hover:bg-green-500 hover:text-white rounded-full font-medium transition-all hover-glow">
+            Menu
+          </button>
         </div>
-    </section>
+      </div>
+      <div class="w-full md:w-1/2" data-aos="fade-left">
+        <div class="relative max-w-lg">
+          <img src="http://static.photos/nature/1200x630/42" alt="Futuristická kavárna" class="rounded-2xl w-full neon-border floating">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
     
     <!-- Features Section -->
     <section class="py-16 sm:py-20 relative z-10 bg-black bg-opacity-70 w-full">
@@ -531,8 +532,10 @@
             once: true
         });
         
-        // Initialize Feather Icons
-        feather.replace();
+        window.onload = function() {
+  feather.replace();
+  displayOpeningHours();
+};
         
         // Enhanced Navigation Scripts
         const navbar = document.getElementById('navbar');
@@ -668,8 +671,6 @@
             }
         }
 
-        // Initialize opening hours display
-        displayOpeningHours();
         
         // Add scroll effect to change lighting
         window.addEventListener('scroll', function() {
