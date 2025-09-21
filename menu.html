@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E.T. Barrr | Celá obrazovka E.T.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <!-- Three.js a doplňkové knihovny -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/DRACOLoader.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        /* Základní styly */
+        html, body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #000000;
+            color: #e8e8e8;
+            overflow-x: hidden;
+            width: 100%;
+            height: 100%;
+            max-width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 100vw;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        /* Hvězdné pozadí */
+        .stars-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        /* Kontejner pro 3D model - FIXNÍ POZICE */
+        #model-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -40%); /* Posunuto níže */
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        /* Opravené styly pro hvězdy */
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .star.small {
+            width: 1px;
+            height: 1px;
+        }
+        
+        /* Holografické efekty */
+        .holographic-text {
+            background: linear-gradient(90deg, #7CFC00, #00FFFF, #FF00FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 8px rgba(124, 252, 0, 0.3);
+        }
+        
+        .neon-border {
+            border: 1px solid rgba(124, 252, 0, 0.3);
+            box-shadow: 0 0 10px rgba(124, 252, 0, 0.5), inset 0 0 10px rgba(124, 252, 0, 0.3);
+        }
+        
+        .hover-glow:hover {
+            box-shadow: 0 0 15px rgba(124, 252, 0, 0.7);
+            transition: all 0.3s ease;
+        }
+        
+        /* Navigace */
+        .nav-scrolled {
+            background: rgba(0, 0, 0, 0.95) !important;
+            backdrop-filter: blur(20px) !important;
+            border-bottom: 1px solid rgba(124, 252, 0, 0.4) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.75rem 1.25rem;
+            border-radius: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(124, 252, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            color: #7CFC00 !important;
+            background: rgba(124, 252, 0, 0.1);
+            box-shadow: 0 0 20px rgba(124, 252, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background: rgba(124, 252, 0, 0.15);
+            color: #7CFC00 !important;
+            box-shadow: 0 0 15px rgba(124, 252, 0, 0.4);
+        }
+
+        .mobile-menu {
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(124, 252, 0, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transform: translateY(-10px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-link {
+            position: relative;
+            padding: 1rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .mobile-nav-link:hover {
+            background: rgba(124, 252, 0, 0.1);
+            border-color: rgba(124, 252, 0, 0.3);
+            color: #7CFC00 !important;
+            transform: translateX(10px);
+        }
+
+        .logo-container {
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            background: rgba(124, 252, 0, 0.05);
+            border: 1px solid rgba(124, 252, 0, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .logo-container:hover {
+            background: rgba(124, 252, 0, 0.1);
+            box-shadow: 0 0 25px rgba(124, 252, 0, 0.4);
+            transform: scale(1.05);
+        }
+
+        .menu-toggle {
+            position: relative;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: rgba(124, 252, 0, 0.1);
+            border: 1px solid rgba(124, 252, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(124, 252, 0, 0.2);
+            box-shadow: 0 0 20px rgba(124, 252, 0, 0.4);
+            transform: rotate(90deg);
+        }
+        
+        /* Footer */
+        .section-dark {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        /* Hologramy */
+        .hologram {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(124,252,0,0.2) 0%, rgba(0,255,255,0.1) 50%, rgba(255,0,255,0) 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Obsah stránky - pouze E.T. */
+        .page-content {
+            min-height: 150vh; /* Větší výška pro scrollování */
+            display: flex;
+            position: relative;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        /* Hlavní obsah stránky */
+        .main-content {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+        
+        /* Placeholder pro obsah pod E.T. */
+        .content-below {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body class="relative">
+    <!-- Hvězdné pozadí -->
+    <div id="stars-background" class="stars-background"></div>
+    
+    <!-- Floating Holograms -->
+    <div class="hologram" style="top:20%; left:10%;"></div>
+    <div class="hologram" style="top:70%; left:80%;"></div>
+    <div class="hologram" style="top:40%; left:30%;"></div>
+    
+    <!-- Enhanced Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-60 backdrop-blur-md border-b border-green-400 border-opacity-20 transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo with enhanced styling -->
+                <a href="#" class="logo-container">
+                    <span class="text-xl sm:text-2xl font-bold holographic-text">E.T. Barrr</span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-2">
+                    <a href="index.html" class="nav-link text-gray-300 text-sm font-medium">Domů</a>
+                    <a href="menu.html" class="nav-link active text-sm font-medium">Menu</a>
+                    <a href="#" class="nav-link text-gray-300 text-sm font-medium">Galerie</a>
+                    <a href="#" class="nav-link text-gray-300 text-sm font-medium">Glamping</a>
+                    <a href="#" class="nav-link text-gray-300 text-sm font-medium">Kontakt</a>
+                    <a href="hra.html" class="nav-link text-gray-300 text-sm font-medium">Hra</a>
+                </div>
+                      
+                <!-- Mobile Menu Toggle -->
+                <button id="mobile-menu-btn" class="lg:hidden menu-toggle">
+                    <i data-feather="menu" class="w-5 h-5 text-green-400"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu lg:hidden absolute top-full left-4 right-4 mt-4 p-6">
+            <div class="flex flex-col space-y-2">
+                <a href="index.html" class="mobile-nav-link text-gray-300">
+                    <i data-feather="home" class="w-4 h-4 inline mr-3"></i>
+                    Domů
+                </a>
+                <a href="menu.html" class="mobile-nav-link text-green-400 font-medium">
+                    <i data-feather="coffee" class="w-4 h-4 inline mr-3"></i>
+                    Menu
+                </a>
+                <a href="#" class="mobile-nav-link text-gray-300">
+                    <i data-feather="image" class="w-4 h-4 inline mr-3"></i>
+                    Galerie
+                </a>
+                <a href="#" class="mobile-nav-link text-gray-300">
+                    <i data-feather="moon" class="w-4 h-4 inline mr-3"></i>
+                    Glamping
+                </a>
+                <a href="#" class="mobile-nav-link text-gray-300">
+                    <i data-feather="mail" class="w-4 h-4 inline mr-3"></i>
+                    Kontakt
+                </a>
+                <a href="hra.html" class="mobile-nav-link text-gray-300">
+                    <i data-feather="play" class="w-4 h-4 inline mr-3"></i>
+                    Hra
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hlavní obsah stránky - pouze E.T. -->
+    <main class="page-content relative z-10 pt-20">
+        <div class="main-content">
+            <!-- Kontejner pro 3D model - FIXNÍ POZICE -->
+            <div id="model-container"></div>
+        </div>
+        
+        
+        
+    </main>
+    
+    <!-- Footer - TMAVÁ -->
+    <footer class="section-dark py-12 relative z-10 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
+                <div class="sm:col-span-2 md:col-span-1">
+                    <h3 class="text-2xl font-bold mb-6 holographic-text">E.T. Barrr</h3>
+                    <p class="text-gray-400">
+                        Glampingová kavárna v srdci Obřan.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-green-400">Otevírací doba</h4>
+                    <div id="opening-hours" class="space-y-2">
+                        <!-- Opening hours will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-green-400">Kontakt</h4>
+                    <ul class="space-y-2 text-gray-400 text-base">
+                        <li class="flex items-center">
+                            <i data-feather="map-pin" class="mr-2 w-4 h-4 flex-shrink-0"></i>
+                            <span>Obřany</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-feather="phone" class="mr-2 w-4 h-4 flex-shrink-0"></i>
+                            <span>+420 123 456 789</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-feather="mail" class="mr-2 w-4 h-4 flex-shrink-0"></i>
+                            <span>info@etbarrr.cz</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-green-400">Sledujte nás</h4>
+                    <div class="flex flex-row flex-wrap gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110">
+                            <i data-feather="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-600 hover:to-yellow-500 hover:text-white transition-all duration-300 transform hover:scale-110">
+                            <i data-feather="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-sky-400 hover:text-white transition-all duration-300 transform hover:scale-110">
+                            <i data-feather="twitter" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                    © 2025 E.T. Barrr. Všechna práva vyhrazena.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script>
+        // Initialize Feather Icons
+        feather.replace();
+        
+        // Vytvoření hvězdného pozadí
+        function createStars() {
+            const starsContainer = document.getElementById('stars-background');
+            const starsCount = 350;
+            
+            for (let i = 0; i < starsCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Náhodná velikost (1-4px)
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Náhodná pozice
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Náhodná doba animace (2-5s)
+                const duration = Math.random() * 3 + 2;
+                star.style.animationDuration = `${duration}s`;
+                
+                // Náhodné zpoždění animace
+                const delay = Math.random() * 5;
+                star.style.animationDelay = `${delay}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Enhanced Navigation Scripts
+        const navbar = document.getElementById('navbar');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        // Scroll effect for navbar
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('active')) {
+                icon.setAttribute('data-feather', 'x');
+            } else {
+                icon.setAttribute('data-feather', 'menu');
+            }
+            feather.replace();
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navbar.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.setAttribute('data-feather', 'menu');
+                feather.replace();
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Pokud href není #, nechme přesměrování fungovat
+                if (this.getAttribute('href') === '#') {
+                    e.preventDefault(); // jen blokujeme prázdné odkazy
+                }
+
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.setAttribute('data-feather', 'menu');
+                feather.replace();
+            });
+        });
+        
+        // Opening hours functionality
+        const openingHours = {
+            1: "9:00 - 20:00", // Po-Út
+            2: "9:00 - 22:00", // St-Pá
+            3: "10:00 - 22:00", // Sobota
+            4: "10:00 - 20:00" // Neděle
+        };
+
+        const dayNames = {
+            1: "Po-Út", 
+            2: "St-Pá",
+            3: "Sobota",
+            4: "Neděle"
+        };
+
+        function isCurrentlyClosed(dayKey) {
+            const now = new Date();
+            const currentTime = now.getHours() * 60 + now.getMinutes(); // čas v minutách
+            
+            // Získání otevírací doby pro daný den
+            const hours = openingHours[dayKey];
+            const [openTime, closeTime] = hours.split(' - ');
+            
+            // Převod na minuty
+            const [openHour, openMin] = openTime.split(':').map(Number);
+            const [closeHour, closeMin] = closeTime.split(':').map(Number);
+            
+            const openInMinutes = openHour * 60 + openMin;
+            const closeInMinutes = closeHour * 60 + closeMin;
+            
+            // Kontrola, zda je aktuálně zavřeno
+            return currentTime < openInMinutes || currentTime >= closeInMinutes;
+        }
+
+        function getCurrentDayKey() {
+            const today = new Date().getDay();
+            
+            if (today === 1 || today === 2) return 1; // Po-Út
+            if (today >= 3 && today <= 5) return 2; // St-Pá
+            if (today === 6) return 3; // Sobota
+            if (today === 0) return 4; // Neděle
+            
+            return null;
+        }
+
+        function displayOpeningHours() {
+            const openingHoursElement = document.getElementById('opening-hours');
+            const today = new Date().getDay();
+            const currentDayKey = getCurrentDayKey();
+            
+            // Procházíme pouze klíče, které skutečně existují
+            for (let day = 1; day <= 4; day++) {
+                const dayElement = document.createElement('div');
+                
+                // Určení, zda je aktuální den
+                let isToday = (day === currentDayKey);
+                
+                // Určení barvy podle stavu
+                let colorClass = 'text-gray-400';
+                if (isToday) {
+                    if (isCurrentlyClosed(day)) {
+                        colorClass = 'text-red-400 font-semibold'; // Červeně pokud je zavřeno
+                    } else {
+                        colorClass = 'text-green-400 font-semibold'; // Zeleně pokud je otevřeno
+                    }
+                }
+                
+                dayElement.className = `flex justify-between items-center ${colorClass}`;
+                
+                dayElement.innerHTML = `
+                    <span>${dayNames[day]}:</span>
+                    <span>${openingHours[day]}</span>
+                `;
+                
+                openingHoursElement.appendChild(dayElement);
+            }
+        }
+
+        // Three.js - Načtení a zobrazení 3D modelu v pozadí
+        function init3DViewer() {
+            // Kontejner pro model
+            const container = document.getElementById('model-container');
+            
+            // Vytvoření scény, kamery a rendereru
+            const scene = new THREE.Scene();
+            scene.background = null; // Průhledné pozadí
+            
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+            
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+            
+            // VRÁCENO PŮVODNÍ OSVĚTLENÍ
+            const ambientLight = new THREE.AmbientLight(0x404040, 2);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
+            
+            // Načtení modelu
+            const gltfLoader = new THREE.GLTFLoader();
+            
+            // ZDE NAHRADTE CESTU K VAŠEMU SOUBORU GLTF/GLB
+            // Pokud máte model v podsložce, upravte cestu
+            gltfLoader.load(
+                // Cesta k vašemu modelu
+                'model/scene.gltf', // Nahraďte skutečnou cestou k vašemu modelu
+                
+                // Callback při úspěšném načtení
+                function (gltf) {
+                    const model = gltf.scene;
+                    
+                    // ZVĚTŠENÍ MODELU - JEŠTĚ VĚTŠÍ
+                    model.scale.set(6, 6, 6); // MNOHEM větší E.T.
+                    
+                    // VRÁCENO PŮVODNÍ OSVĚTLENÍ - méně zelené
+                    model.traverse(function (child) {
+                        if (child.isMesh) {
+                            if (child.material) {
+                                if (child.material.color) {
+                                    // Vrácena původní barva
+                                    child.material.color.set(0x88aa88); // Původní zeleno-šedá
+                                }
+                                
+                                // Vráceno původní osvětlení
+                                child.material.emissive = new THREE.Color(0x333333);
+                                child.material.emissiveIntensity = 0.2;
+                                child.material.metalness = 0.3;
+                                child.material.roughness = 0.6;
+                                
+                                child.material.needsUpdate = true;
+                            }
+                        }
+                    });
+                    
+                    scene.add(model);
+                    
+                    // Nastavení pozice a velikosti modelu
+                    const box = new THREE.Box3().setFromObject(model);
+                    const center = box.getCenter(new THREE.Vector3());
+                    const size = box.getSize(new THREE.Vector3());
+                    
+                    // Vycentrování modelu - POSUNUTO NÍŽE
+                    model.position.x = -center.x;
+                    model.position.y = -center.y + 0.5; // Posunuto níže než předtím
+                    model.position.z = -center.z;
+                    
+                    // Nastavení kamery pro větší model
+                    const maxDim = Math.max(size.x, size.y, size.z);
+                    const fov = camera.fov * (Math.PI / 180);
+                    let cameraZ = Math.abs(maxDim / Math.sin(fov / 2));
+                    
+                    camera.position.z = cameraZ * 0.9;
+                    
+                    // Interakce s myší - otáčení modelu podle pozice myši
+                    document.addEventListener('mousemove', onMouseMove, false);
+                    
+                    function onMouseMove(event) {
+                        // Normalizované souřadnice myši (-1 to 1)
+                        const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                        const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+                        
+                        // Plynulé otáčení modelu podle pozice myši
+                        model.rotation.y = mouseX * 0.5;
+                        model.rotation.x = -mouseY * 0.3;
+                    }
+                },
+                
+                // Callback během načítání
+                function (xhr) {
+                    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                },
+                
+                // Callback při chybě
+                function (error) {
+                    console.error('Error loading model:', error);
+                    
+                    // Pokud model nelze načíst, vytvoříme náhradní E.T.
+                    createFallbackET(scene);
+                }
+            );
+            
+            // Animace
+            function animate() {
+                requestAnimationFrame(animate);
+                renderer.render(scene, camera);
+            }
+            animate();
+            
+            // Resize handler
+            window.addEventListener('resize', function() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        // Funkce pro vytvoření náhradního E.T., pokud se nepodaří načíst model
+        function createFallbackET(scene) {
+            // Tělo E.T.
+            const bodyGeometry = new THREE.SphereGeometry(1, 32, 32);
+            const bodyMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0x88aa88, 
+                emissive: 0x333333,
+                emissiveIntensity: 0.2,
+                shininess: 100
+            });
+            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            body.position.y = 0.5;
+            scene.add(body);
+            
+            // Hlava E.T.
+            const headGeometry = new THREE.SphereGeometry(0.7, 32, 32);
+            const headMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0x88aa88, 
+                emissive: 0x333333,
+                emissiveIntensity: 0.2,
+                shininess: 100
+            });
+            const head = new THREE.Mesh(headGeometry, headMaterial);
+            head.position.y = 1.8;
+            scene.add(head);
+            
+            // Oči E.T.
+            const eyeGeometry = new THREE.SphereGeometry(0.15, 16, 16);
+            const eyeMaterial = new THREE.MeshPhongMaterial({ color: 0x0000ff, emissive: 0x0000aa });
+            
+            const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+            leftEye.position.set(-0.25, 1.9, 0.6);
+            scene.add(leftEye);
+            
+            const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+            rightEye.position.set(0.25, 1.9, 0.6);
+            scene.add(rightEye);
+            
+            // Krk E.T.
+            const neckGeometry = new THREE.CylinderGeometry(0.3, 0.4, 0.5, 16);
+            const neckMaterial = new THREE.MeshPhongMaterial({ color: 0x88aa88 });
+            const neck = new THREE.Mesh(neckGeometry, neckMaterial);
+            neck.position.y = 1.3;
+            scene.add(neck);
+            
+            // Zvětšení celého E.T.
+            const scale = 3.5;
+            body.scale.set(scale, scale, scale);
+            head.scale.set(scale, scale, scale);
+            neck.scale.set(scale, scale, scale);
+            leftEye.scale.set(scale, scale, scale);
+            rightEye.scale.set(scale, scale, scale);
+            
+            // Interakce s myší - otáčení modelu podle pozice myši
+            document.addEventListener('mousemove', onMouseMove, false);
+            
+            function onMouseMove(event) {
+                // Normalizované souřadnice myši (-1 to 1)
+                const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+                
+                // Plynulé otáčení modelu podle pozice myši
+                head.rotation.y = mouseX * 0.5;
+                head.rotation.x = -mouseY * 0.3;
+                body.rotation.y = mouseX * 0.3;
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            displayOpeningHours();
+            init3DViewer();
+        });
+    </script>
+</body>
+</html>

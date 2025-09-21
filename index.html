@@ -278,312 +278,7 @@
 
 
 
-/* -------------------------- Story Adventure Styles ---------------------------------*/
-.story-adventure-container {
-    position: relative;
-}
 
-.mission-status {
-    backdrop-filter: blur(10px);
-}
-
-.status-indicator {
-    width: 12px;
-    height: 12px;
-    background: #7CFC00;
-    border-radius: 50%;
-    animation: pulse-status 2s infinite;
-}
-
-@keyframes pulse-status {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.1); }
-}
-
-.progress-bar {
-    width: 100px;
-    height: 4px;
-    background: rgba(124, 252, 0, 0.2);
-    border-radius: 2px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #7CFC00, #00FFFF);
-    width: 8.33%;
-    transition: width 0.5s ease;
-    box-shadow: 0 0 10px rgba(124, 252, 0, 0.6);
-}
-
-.story-step {
-    display: none;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease;
-}
-
-.story-step.active {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.story-screen {
-    background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(20, 20, 20, 0.8));
-    border: 2px solid rgba(124, 252, 0, 0.3);
-    border-radius: 20px;
-    padding: 2rem;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 0 30px rgba(124, 252, 0, 0.2);
-    position: relative;
-    overflow: hidden;
-}
-
-.story-screen::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #7CFC00, transparent);
-    animation: scan-line 4s infinite;
-}
-
-@keyframes scan-line {
-    0%, 100% { left: -100%; opacity: 0; }
-    50% { left: 100%; opacity: 1; }
-}
-
-.screen-header {
-    text-align: center;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid rgba(124, 252, 0, 0.3);
-    padding-bottom: 1rem;
-}
-
-.story-title {
-    color: #7CFC00;
-    font-size: 1.5rem;
-    font-weight: bold;
-    font-family: 'Courier New', monospace;
-    letter-spacing: 2px;
-}
-
-.story-content {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    align-items: center;
-}
-
-.hologram-display {
-    font-size: 4rem;
-    text-align: center;
-    padding: 2rem;
-    background: radial-gradient(circle, rgba(124, 252, 0, 0.2), transparent);
-    border-radius: 50%;
-    animation: hologram-float 3s ease-in-out infinite;
-}
-
-.hologram-display.success {
-    color: #7CFC00;
-    animation: success-pulse 2s ease infinite;
-}
-
-@keyframes hologram-float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    33% { transform: translateY(-10px) rotate(5deg); }
-    66% { transform: translateY(5px) rotate(-5deg); }
-}
-
-@keyframes success-pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.1); opacity: 0.8; }
-}
-
-.story-text {
-    color: #e8e8e8;
-    line-height: 1.6;
-}
-
-.story-text p {
-    margin-bottom: 1rem;
-}
-
-.alien-dialogue {
-    background: rgba(124, 252, 0, 0.1);
-    border-left: 3px solid #7CFC00;
-    padding: 1rem;
-    margin: 1rem 0;
-    border-radius: 0 10px 10px 0;
-}
-
-.dialogue-speaker {
-    color: #7CFC00;
-    font-weight: bold;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-}
-
-.dialogue-text {
-    color: #ffffff;
-    font-style: italic;
-}
-
-.menu-preview {
-    background: rgba(0, 0, 0, 0.6);
-    padding: 1rem;
-    border-radius: 10px;
-    margin: 1rem 0;
-    border: 1px solid rgba(124, 252, 0, 0.3);
-}
-
-.menu-item-preview {
-    color: #00FFFF;
-    margin: 0.5rem 0;
-    font-family: 'Courier New', monospace;
-}
-
-.story-choices {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.choice-btn {
-    display: flex;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    border-radius: 15px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-
-.choice-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.6s ease;
-}
-
-.choice-btn:hover::before {
-    left: 100%;
-}
-
-.choice-btn.primary {
-    background: linear-gradient(135deg, rgba(124, 252, 0, 0.2), rgba(124, 252, 0, 0.1));
-    border: 2px solid #7CFC00;
-    color: #7CFC00;
-}
-
-.choice-btn.primary:hover {
-    background: #7CFC00;
-    color: black;
-    box-shadow: 0 0 20px rgba(124, 252, 0, 0.6);
-    transform: translateY(-2px);
-}
-
-.choice-btn.secondary {
-    background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 255, 255, 0.1));
-    border: 2px solid #00FFFF;
-    color: #00FFFF;
-}
-
-.choice-btn.secondary:hover {
-    background: #00FFFF;
-    color: black;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
-    transform: translateY(-2px);
-}
-
-.choice-btn.tertiary {
-    background: linear-gradient(135deg, rgba(255, 0, 255, 0.2), rgba(255, 0, 255, 0.1));
-    border: 2px solid #FF00FF;
-    color: #FF00FF;
-}
-
-.choice-btn.tertiary:hover {
-    background: #FF00FF;
-    color: black;
-    box-shadow: 0 0 20px rgba(255, 0, 255, 0.6);
-    transform: translateY(-2px);
-}
-
-.choice-icon {
-    margin-right: 0.5rem;
-    width: 20px;
-    height: 20px;
-}
-
-.mission-summary {
-    background: rgba(124, 252, 0, 0.1);
-    padding: 1rem;
-    border-radius: 10px;
-    margin: 1rem 0;
-    border: 1px solid rgba(124, 252, 0, 0.3);
-}
-
-/* Mobile responsive */
-@media (max-width: 768px) {
-    .story-content {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    
-    .hologram-display {
-        font-size: 3rem;
-        padding: 1rem;
-    }
-    
-    .story-screen {
-        padding: 1rem;
-    }
-    
-    .mission-status {
-        padding: 1rem;
-    }
-    
-    .mission-status .flex {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: stretch;
-    }
-}
-
-
-.menu-category {
-    margin-bottom: 2rem;
-}
-
-.menu-category h4 {
-    color: #00FFFF;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-}
-
-.menu-items-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.menu-item-full {
-    color: #e8e8e8;
-    padding: 0.5rem;
-    background: rgba(124, 252, 0, 0.1);
-    border-radius: 8px;
-    font-family: 'Courier New', monospace;
-}
 
     </style>
 </head>
@@ -601,17 +296,18 @@
         <div class="container mx-auto px-4 sm:px-6 py-4">
             <div class="flex justify-between items-center">
                 <!-- Logo with enhanced styling -->
-                <a href="#" class="logo-container">
+                <a href="index.html" class="logo-container">
                     <span class="text-xl sm:text-2xl font-bold holographic-text">E.T. Barrr</span>
                 </a>
                 
                 <!-- Desktop Navigation -->
                 <div class="hidden lg:flex items-center space-x-2">
-                    <a href="#" class="nav-link active text-sm font-medium">Domů</a>
-                    <a href="#" class="nav-link text-gray-300 text-sm font-medium">Menu</a>
+                    <a href="index.html" class="nav-link active text-sm font-medium">Domů</a>
+                    <a href="menu.html" class="nav-link text-gray-300 text-sm font-medium">Menu</a>
                     <a href="#" class="nav-link text-gray-300 text-sm font-medium">Galerie</a>
                     <a href="#" class="nav-link text-gray-300 text-sm font-medium">Glamping</a>
                     <a href="#" class="nav-link text-gray-300 text-sm font-medium">Kontakt</a>
+                    <a href="hra.html" class="nav-link text-gray-300 text-sm font-medium">Hra</a>
                 </div>
                       
                     <!-- Mobile Menu Toggle -->
@@ -625,11 +321,11 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="mobile-menu lg:hidden absolute top-full left-4 right-4 mt-4 p-6">
             <div class="flex flex-col space-y-2">
-                <a href="#" class="mobile-nav-link text-green-400 font-medium">
+                <a href="index.html" class="mobile-nav-link text-green-400 font-medium">
                     <i data-feather="home" class="w-4 h-4 inline mr-3"></i>
                     Domů
                 </a>
-                <a href="#" class="mobile-nav-link text-gray-300">
+                <a href="menu.html" class="mobile-nav-link text-gray-300">
                     <i data-feather="coffee" class="w-4 h-4 inline mr-3"></i>
                     Menu
                 </a>
@@ -644,6 +340,10 @@
                 <a href="#" class="mobile-nav-link text-gray-300">
                     <i data-feather="mail" class="w-4 h-4 inline mr-3"></i>
                     Kontakt
+                </a>
+                <a href="hra.html" class="mobile-nav-link text-gray-300">
+                    <i data-feather="play" class="w-4 h-4 inline mr-3"></i>
+                    Hra
                 </a>
             </div>
         </div>
@@ -680,372 +380,64 @@
         </div>
     </section>
     
-<!-- Interactive Story Adventure Section - TMAVÁ -->
-<section class="section-dark py-16 sm:py-20 relative z-10 w-full">
+<!-- Menu Preview Section - TMAVÁ -->
+<section class="section-dark py-16 sm:py-20 relative z-10">
     <div class="container mx-auto px-4 sm:px-6">
         <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16" data-aos="fade-up">
-            <span class="holographic-text">Vaše mise na stanici E.T. Barrr</span>
+            <span class="holographic-text">Ochutnejte naše galaktické speciality</span>
         </h2>
         
-        <!-- Story Container -->
-        <div class="story-adventure-container max-w-4xl mx-auto">
-            
-            <!-- Mission Status Display -->
-            <div class="mission-status mb-8 p-4 bg-gray-900 bg-opacity-60 rounded-2xl border border-green-400 border-opacity-30">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-4">
-                        <div class="status-indicator"></div>
-                        <span class="text-green-400 font-bold" id="mission-status">STATUS: PŘISTÁVÁNÍ ZAHÁJENO</span>
-                    </div>
-                    <div class="mission-progress">
-                        <span class="text-gray-400 text-sm">Krok <span id="current-step">1</span> z 12</span>
-                        <div class="progress-bar mt-1">
-                            <div class="progress-fill" id="progress-fill"></div>
-                        </div>
+        <!-- Menu Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Kávy -->
+            <div class="menu-preview-card relative rounded-2xl overflow-hidden h-80 cursor-pointer group neon-border hover-glow" data-aos="fade-up" data-aos-delay="100">
+                <img src="http://static.photos/food/640x480/1" alt="Galaktické kávy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90"></div>
+                <div class="absolute inset-0 flex flex-col justify-end p-6">
+                    <div class="text-center">
+                        <div class="text-3xl mb-2">☕</div>
+                        <h3 class="text-xl font-bold text-green-400 mb-2">Galaktické kávy</h3>
+                        <p class="text-gray-300 text-sm mb-3">Espresso, Cappuccino, Latte s mimozemským nádechem</p>
+                        <div class="text-green-400 font-semibold">od 65 Kč</div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Story Steps Container -->
-            <div class="story-steps">
-                
-                <!-- Step 0: Úvod -->
-                <div class="story-step active" id="step-0">
-                    <div class="story-screen">
-                        <div class="screen-header">
-                            <h3 class="story-title">VESMÍRNÁ STANICE E.T. BARRR</h3>
-                        </div>
-                        <div class="story-content">
-                            <div class="story-image">
-                                <div class="hologram-display">🛸</div>
-                            </div>
-                            <div class="story-text">
-                                <p>Vaše loď se blíží k obří rotující stanici obklopené zelenavým hologramovým štítem. Komunikační systém se aktivuje...</p>
-                                <div class="alien-dialogue">
-                                    <div class="dialogue-speaker">📡 STANICE E.T. BARRR</div>
-                                    <div class="dialogue-text">"Vítáme vás, pozemští přátelé! Máte povolení k dokování. Připravte se na nezapomenutelný zážitek."</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="story-choices">
-                            <button class="choice-btn primary" onclick="nextStep(1)">
-                                <i data-feather="navigation" class="choice-icon"></i>
-                                Aktivovat dokování
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Step 1: Hangár -->
-                <div class="story-step" id="step-1">
-                    <div class="story-screen">
-                        <div class="screen-header">
-                            <h3 class="story-title">HANGÁR BAY ALPHA</h3>
-                        </div>
-                        <div class="story-content">
-                            <div class="story-image">
-                                <div class="hologram-display">🤖</div>
-                            </div>
-                            <div class="story-text">
-                                <p>Vaše loď se úspěšně zadokovala. Robotický průvodce se k vám přiblíží:</p>
-                                <div class="alien-dialogue">
-                                    <div class="dialogue-speaker">🤖 ROBOT C-4FF33</div>
-                                    <div class="dialogue-text">"Vítáme na palubě! Doporučuji začít v kavárně, ale rozhodnutí je na vás."</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="story-choices">
-                            <button class="choice-btn primary" onclick="nextStep(2)">
-                                <i data-feather="coffee" class="choice-icon"></i>
-                                Jít do kavárny
-                            </button>
-                            <button class="choice-btn secondary" onclick="nextStep(3)">
-                                <i data-feather="activity" class="choice-icon"></i>
-                                Prozkoumat rekreační sektor
-                            </button>
-                            <button class="choice-btn tertiary" onclick="nextStep(4)">
-                                <i data-feather="moon" class="choice-icon"></i>
-                                Rovnou do glampingu
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Step 2: Kavárna -->
-                <div class="story-step" id="step-2">
-                    <div class="story-screen">
-                        <div class="screen-header">
-                            <h3 class="story-title">MIMOZEMSKÁ KAVÁRNA</h3>
-                        </div>
-                        <div class="story-content">
-                            <div class="story-image">
-                                <div class="hologram-display">☕</div>
-                            </div>
-                            <div class="story-text">
-                                <p>Vstoupili jste do futuristické kavárny. Holografické menu se před vámi materializuje:</p>
-                                <div class="menu-preview">
-                                    <div class="menu-item-preview">🌟 Galaktické Espresso - 65 Kč</div>
-                                    <div class="menu-item-preview">🚀 Antigrav Cappuccino - 75 Kč</div>
-                                    <div class="menu-item-preview">⚡ Plazma Smoothie - 85 Kč</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="story-choices">
-                            <button class="choice-btn primary" onclick="orderDrink('espresso')">
-                                <i data-feather="zap" class="choice-icon"></i>
-                                Objednat Galaktické Espresso
-                            </button>
-                            <button class="choice-btn secondary" onclick="orderDrink('smoothie')">
-                                <i data-feather="droplet" class="choice-icon"></i>
-                                Vyzkoušet Plazma Smoothie
-                            </button>
-                            <button class="choice-btn tertiary" onclick="showFullMenu()">
-                                <i data-feather="book-open" class="choice-icon"></i>
-                                Zobrazit kompletní menu
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Step 3: Rekreační sektor -->
-                <div class="story-step" id="step-3">
-                    <div class="story-screen">
-                        <div class="screen-header">
-                            <h3 class="story-title">REKREAČNÍ SEKTOR</h3>
-                        </div>
-                        <div class="story-content">
-                            <div class="story-image">
-                                <div class="hologram-display">🎮</div>
-                            </div>
-                            <div class="story-text">
-                                <p>Ocitáte se v obrovské hale plné interaktivních atrakcí. Slyšíte smích dětí a zvuky her.</p>
-                                <div class="alien-dialogue">
-                                    <div class="dialogue-speaker">🎪 SPRÁVCE SEKTORU</div>
-                                    <div class="dialogue-text">"Všechny atrakce jsou aktivní! Vodní skluzavka je dnes obzvlášť populární."</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="story-choices">
-                            <button class="choice-btn primary" onclick="nextStep(5)">
-                                <i data-feather="waves" class="choice-icon"></i>
-                                Vyzkoušet vodní skluzavku
-                            </button>
-                            <button class="choice-btn secondary" onclick="nextStep(6)">
-                                <i data-feather="target" class="choice-icon"></i>
-                                Hrát holografické hry
-                            </button>
-                            <button class="choice-btn tertiary" onclick="nextStep(2)">
-                                <i data-feather="coffee" class="choice-icon"></i>
-                                Přece jen jít do kavárny
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Step 4: Glamping -->
-                <div class="story-step" id="step-4">
-                    <div class="story-screen">
-                        <div class="screen-header">
-                            <h3 class="story-title">GLAMPINGOVÉ MODULY</h3>
-                        </div>
-                        <div class="story-content">
-                            <div class="story-image">
-                                <div class="hologram-display">🏕️</div>
-                            </div>
-                            <div class="story-text">
-                                <p>Před vámi se rozprostírají průhledné kupole s výhledem na hvězdné pole. Každá kabina má vlastní AI asistenta.</p>
-                                <div class="alien-dialogue">
-                                    <div class="dialogue-speaker">🏨 RECEPČNÍ ANDROID</div>
-                                    <div class="dialogue-text">"Máme volné premium kabiny s projekcí souhvězdí. Chcete rezervaci?"</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="story-choices">
-                            <button class="choice-btn primary" onclick="nextStep(7)">
-                                <i data-feather="star" class="choice-icon"></i>
-                                Rezervovat premium kabinu
-                            </button>
-                            <button class="choice-btn secondary" onclick="nextStep(8)">
-                                <i data-feather="eye" class="choice-icon"></i>
-                                Prohlédnout si standard kabinu
-                            </button>
-                            <button class="choice-btn tertiary" onclick="nextStep(2)">
-                                <i data-feather="coffee" class="choice-icon"></i>
-                                Nejdřív něco k pití
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Step 5: Vodní skluzavka -->
-<div class="story-step" id="step-5">
-    <div class="story-screen">
-        <div class="screen-header">
-            <h3 class="story-title">VODNÍ ATRAKCE</h3>
-        </div>
-        <div class="story-content">
-            <div class="story-image">
-                <div class="hologram-display">🌊</div>
-            </div>
-            <div class="story-text">
-                <p>Sklouzli jste se po 50metrové spirálové skluzavce! Voda má perfektní teplotu díky geotermálnímu systému stanice.</p>
-                <div class="alien-dialogue">
-                    <div class="dialogue-speaker">💧 VODNÍ SYSTÉM</div>
-                    <div class="dialogue-text">"Detekována vysoká úroveň endorfinů. Doporučuji odpočinek v relaxační zóně."</div>
-                </div>
-            </div>
-        </div>
-        <div class="story-choices">
-            <button class="choice-btn primary" onclick="nextStep(2)">
-                <i data-feather="coffee" class="choice-icon"></i>
-                Jít se občerstvit do kavárny
-            </button>
-            <button class="choice-btn secondary" onclick="nextStep(4)">
-                <i data-feather="moon" class="choice-icon"></i>
-                Odpočinout si v glampingu
-            </button>
-            <button class="choice-btn tertiary" onclick="completeMission()">
-                <i data-feather="check-circle" class="choice-icon"></i>
-                Dokončit průzkum
-            </button>
-        </div>
-    </div>
-</div>
 
-<!-- Step 6: Holografické hry -->
-<div class="story-step" id="step-6">
-    <div class="story-screen">
-        <div class="screen-header">
-            <h3 class="story-title">HERNÍ ZÓNA</h3>
-        </div>
-        <div class="story-content">
-            <div class="story-image">
-                <div class="hologram-display">🎯</div>
-            </div>
-            <div class="story-text">
-                <p>Vyzkoušeli jste virtuální lukostřelbu v simulaci mimozemských lesů. Vaše skóre: 847 bodů!</p>
-                <div class="alien-dialogue">
-                    <div class="dialogue-speaker">🎮 HERNÍ AI</div>
-                    <div class="dialogue-text">"Excelentní výkon! Jste mezi top 10% hráči této galaxie. Odměna odeslána na váš účet."</div>
-                </div>
-            </div>
-        </div>
-        <div class="story-choices">
-            <button class="choice-btn primary" onclick="nextStep(2)">
-                <i data-feather="coffee" class="choice-icon"></i>
-                Oslavit úspěch v kavárně
-            </button>
-            <button class="choice-btn secondary" onclick="nextStep(4)">
-                <i data-feather="moon" class="choice-icon"></i>
-                Odpočinout v glampingu
-            </button>
-            <button class="choice-btn tertiary" onclick="completeMission()">
-                <i data-feather="check-circle" class="choice-icon"></i>
-                Ukončit návštěvu
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- Step 7: Premium kabina -->
-<div class="story-step" id="step-7">
-    <div class="story-screen">
-        <div class="screen-header">
-            <h3 class="story-title">PREMIUM KABINA</h3>
-        </div>
-        <div class="story-content">
-            <div class="story-image">
-                <div class="hologram-display">⭐</div>
-            </div>
-            <div class="story-text">
-                <p>Vstoupili jste do luxusní kabiny s průhlednou kupolí. Nad vámi se rozprostírá nekonečné hvězdné pole...</p>
-                <div class="alien-dialogue">
-                    <div class="dialogue-speaker">🏨 KABINA AI</div>
-                    <div class="dialogue-text">"Vítejte v Suite Alpha. Klimatizace nastavena, projekce souhvězdí aktivována. Přeji krásnou noc."</div>
-                </div>
-            </div>
-        </div>
-        <div class="story-choices">
-            <button class="choice-btn primary" onclick="window.open('tel:+420123456789')">
-                <i data-feather="phone" class="choice-icon"></i>
-                Rezervovat tuto kabinu
-            </button>
-            <button class="choice-btn secondary" onclick="nextStep(8)">
-                <i data-feather="eye" class="choice-icon"></i>
-                Prohlédnout standardní kabinu
-            </button>
-            <button class="choice-btn tertiary" onclick="completeMission()">
-                <i data-feather="check-circle" class="choice-icon"></i>
-                Dokončit prohlídku
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- Step 8: Standard kabina -->
-<div class="story-step" id="step-8">
-    <div class="story-screen">
-        <div class="screen-header">
-            <h3 class="story-title">STANDARD KABINA</h3>
-        </div>
-        <div class="story-content">
-            <div class="story-image">
-                <div class="hologram-display">🏕️</div>
-            </div>
-            <div class="story-text">
-                <p>I standardní kabina nabízí neuvěřitelný komfort - pohodlné lůžko, klimatizace a základní projekce hvězd.</p>
-                <div class="alien-dialogue">
-                    <div class="dialogue-speaker">🏨 RECEPČNÍ ANDROID</div>
-                    <div class="dialogue-text">"Standard kabiny jsou oblíbené pro rodiny. Máte zájem o rezervaci?"</div>
-                </div>
-            </div>
-        </div>
-        <div class="story-choices">
-            <button class="choice-btn primary" onclick="window.open('tel:+420123456789')">
-                <i data-feather="phone" class="choice-icon"></i>
-                Rezervovat standard kabinu
-            </button>
-            <button class="choice-btn secondary" onclick="nextStep(7)">
-                <i data-feather="star" class="choice-icon"></i>
-                Přece jen zkusit premium
-            </button>
-            <button class="choice-btn tertiary" onclick="completeMission()">
-                <i data-feather="check-circle" class="choice-icon"></i>
-                Zatím jen prohlídka
-            </button>
-        </div>
-    </div>
-</div>
-                <!-- Další kroky... -->
-                <div class="story-step" id="step-final">
-                    <div class="story-screen">
-                        <div class="screen-header">
-                            <h3 class="story-title">MISE DOKONČENA</h3>
-                        </div>
-                        <div class="story-content">
-                            <div class="story-image">
-                                <div class="hologram-display success">✅</div>
-                            </div>
-                            <div class="story-text">
-                                <p>Gratuluji! Úspěšně jste prozkoumali stanici E.T. Barrr.</p>
-                                <div class="mission-summary" id="mission-summary">
-                                    <!-- Zde se zobrazí souhrn voleb -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="story-choices">
-                            <button class="choice-btn primary" onclick="window.open('tel:+420123456789')">
-                                <i data-feather="phone" class="choice-icon"></i>
-                                Zavolat a rezervovat
-                            </button>
-                            <button class="choice-btn secondary" onclick="restartMission()">
-                                <i data-feather="refresh-cw" class="choice-icon"></i>
-                                Začít misi znovu
-                            </button>
-                        </div>
+            <!-- Smoothies a nápoje -->
+            <div class="menu-preview-card relative rounded-2xl overflow-hidden h-80 cursor-pointer group neon-border hover-glow" data-aos="fade-up" data-aos-delay="200">
+                <img src="http://static.photos/food/640x480/2" alt="Plazma smoothies" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90"></div>
+                <div class="absolute inset-0 flex flex-col justify-end p-6">
+                    <div class="text-center">
+                        <div class="text-3xl mb-2">🥤</div>
+                        <h3 class="text-xl font-bold text-purple-400 mb-2">Plazma nápoje</h3>
+                        <p class="text-gray-300 text-sm mb-3">Energetické smoothies a futuristické drinky</p>
+                        <div class="text-purple-400 font-semibold">od 75 Kč</div>
                     </div>
                 </div>
-                
             </div>
+
+            <!-- Dezerty -->
+            <div class="menu-preview-card relative rounded-2xl overflow-hidden h-80 cursor-pointer group neon-border hover-glow" data-aos="fade-up" data-aos-delay="300">
+                <img src="http://static.photos/food/640x480/3" alt="Vesmírné dezerty" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90"></div>
+                <div class="absolute inset-0 flex flex-col justify-end p-6">
+                    <div class="text-center">
+                        <div class="text-3xl mb-2">🍰</div>
+                        <h3 class="text-xl font-bold text-cyan-400 mb-2">Vesmírné dezerty</h3>
+                        <p class="text-gray-300 text-sm mb-3">Holografické dorty a molekulární sladkosti</p>
+                        <div class="text-cyan-400 font-semibold">od 95 Kč</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action Button -->
+        <div class="text-center" data-aos="fade-up" data-aos-delay="700">
+            <a href="menu.html" class="inline-block px-8 py-3 border border-green-500 text-green-500 hover:bg-green-500 hover:text-white rounded-full font-medium transition-all hover-glow">
+                <i data-feather="book-open" class="w-6 h-6 inline mr-3"></i>Zobrazit kompletní menu
+            </a>
+            <p class="text-gray-400 text-sm mt-4">Více než 50 galaktických specialit čeká na objevení!</p>
         </div>
     </div>
 </section>
@@ -1337,14 +729,18 @@
             }
         });
 
-        // Active navigation link handling
         navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                navLinks.forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
+    link.addEventListener('click', function(e) {
+        // Pokud href není #, nechme přesměrování fungovat
+        if (this.getAttribute('href') === '#') {
+            e.preventDefault(); // jen blokujeme prázdné odkazy
+        }
+
+        navLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+
 
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', function() {
@@ -1499,240 +895,7 @@ galleryItems.forEach(item => {
 
 
 
-//////////////////////// Story Adventure JavaScript
-let currentStoryStep = 0;
-let missionData = {
-    visitedCafe: false,
-    visitedPlayground: false,
-    visitedGlamping: false,
-    drinkOrdered: null,
-    choices: []
-};
 
-function nextStep(stepNumber) {
-    // Update progress
-    updateProgress(stepNumber);
-    
-    // Hide current step
-    const currentStep = document.getElementById(`step-${currentStoryStep}`);
-    if (currentStep) {
-        currentStep.classList.remove('active');
-    }
-    
-    // Show new step with animation
-    setTimeout(() => {
-        const newStep = document.getElementById(`step-${stepNumber}`);
-        if (newStep) {
-            newStep.classList.add('active');
-            currentStoryStep = stepNumber;
-            
-            // Update mission status
-            updateMissionStatus(stepNumber);
-            
-            // Scroll to story section
-            document.querySelector('.story-adventure-container').scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
-            
-            // Re-initialize feather icons for new content
-            feather.replace();
-        }
-    }, 300);
-}
-
-function updateProgress(step) {
-    const progressFill = document.getElementById('progress-fill');
-    const currentStepSpan = document.getElementById('current-step');
-    
-    const progress = (step / 12) * 100;
-    progressFill.style.width = `${Math.min(progress, 100)}%`;
-    currentStepSpan.textContent = step + 1;
-}
-
-function updateMissionStatus(step) {
-    const statusElement = document.getElementById('mission-status');
-    const statuses = {
-        0: "STATUS: PŘISTÁVÁNÍ ZAHÁJENO",
-        1: "STATUS: DOKOVÁNÍ DOKONČENO",
-        2: "STATUS: PROZKOUMÁVÁNÍ KAVÁRNY",
-        3: "STATUS: REKREAČNÍ SEKTOR AKTIVNÍ",
-        4: "STATUS: GLAMPINGOVÉ MODULY",
-        5: "STATUS: AKTIVITA V PRŮBĚHU",
-        6: "STATUS: HERNÍ MÓD AKTIVNÍ",
-        7: "STATUS: REZERVACE ZPRACOVÁNA",
-        8: "STATUS: PROHLÍDKA KABINY",
-        'final': "STATUS: MISE DOKONČENA"
-    };
-    
-    statusElement.textContent = statuses[step] || statuses[0];
-}
-
-function orderDrink(drink) {
-    missionData.drinkOrdered = drink;
-    missionData.visitedCafe = true;
-    missionData.choices.push(`Objednal(a) jste ${drink}`);
-    
-    // Special drink experience
-    if (drink === 'espresso') {
-        showDrinkExperience('Galaktické Espresso vám dodalo energii na celý den! ⚡');
-    } else if (drink === 'smoothie') {
-        showDrinkExperience('Plazma Smoothie vás nabilo kosmickou energií! 🌟');
-    }
-    
-    // Continue to next step
-    setTimeout(() => {
-        nextStep(3); // Přejít na rekreační sektor
-    }, 3000);
-}
-
-function showDrinkExperience(message) {
-    // Create temporary experience message
-    const experienceDiv = document.createElement('div');
-    experienceDiv.className = 'drink-experience';
-    experienceDiv.innerHTML = `
-        <div class="experience-message">
-            ${message}
-            <div class="energy-bar">
-                <div class="energy-fill"></div>
-            </div>
-        </div>
-    `;
-    
-    const currentStep = document.getElementById(`step-${currentStoryStep}`);
-    currentStep.appendChild(experienceDiv);
-    
-    // Remove after animation
-    setTimeout(() => {
-        experienceDiv.remove();
-    }, 3000);
-}
-
-function showFullMenu() {
-    // Create menu popup
-    const menuPopup = document.createElement('div');
-    menuPopup.className = 'menu-popup';
-    menuPopup.innerHTML = `
-        <div class="menu-popup-content">
-            <div class="menu-header">
-                <h3>KOMPLETNÍ GALAKTICKÉ MENU</h3>
-                <button onclick="closeMenuPopup()" class="close-btn">×</button>
-            </div>
-            <div class="menu-categories">
-                <div class="menu-category">
-                    <h4>☕ NÁPOJE</h4>
-                    <div class="menu-items-list">
-                        <div class="menu-item-full">Galaktické Espresso - 65 Kč</div>
-                        <div class="menu-item-full">Antigrav Cappuccino - 75 Kč</div>
-                        <div class="menu-item-full">Plazma Smoothie - 85 Kč</div>
-                        <div class="menu-item-full">Mimozemský Koktejl - 120 Kč</div>
-                    </div>
-                </div>
-                <div class="menu-category">
-                    <h4>🍽️ JÍDLO</h4>
-                    <div class="menu-items-list">
-                        <div class="menu-item-full">Vesmírný Burger - 180 Kč</div>
-                        <div class="menu-item-full">Asteroidy (nuggets) - 150 Kč</div>
-                        <div class="menu-item-full">Planetární Pizza - 220 Kč</div>
-                    </div>
-                </div>
-            </div>
-            <button class="choice-btn primary" onclick="closeMenuPopup(); nextStep(3);">
-                Pokračovat v průzkumu
-            </button>
-        </div>
-    `;
-    
-    document.body.appendChild(menuPopup);
-    setTimeout(() => menuPopup.classList.add('active'), 100);
-}
-
-function closeMenuPopup() {
-    const popup = document.querySelector('.menu-popup');
-    if (popup) {
-        popup.classList.remove('active');
-        setTimeout(() => popup.remove(), 300);
-    }
-}
-
-function restartMission() {
-    currentStoryStep = 0;
-    missionData = {
-        visitedCafe: false,
-        visitedPlayground: false,
-        visitedGlamping: false,
-        drinkOrdered: null,
-        choices: []
-    };
-    
-    // Hide all steps
-    document.querySelectorAll('.story-step').forEach(step => {
-        step.classList.remove('active');
-    });
-    
-    // Show first step
-    setTimeout(() => {
-        document.getElementById('step-0').classList.add('active');
-        updateProgress(0);
-        updateMissionStatus(0);
-    }, 300);
-}
-
-// Continue to final step when mission is complete
-function completeMission() {
-    // Generate mission summary
-    const summary = generateMissionSummary();
-    const summaryElement = document.getElementById('mission-summary');
-    if (summaryElement) {
-        summaryElement.innerHTML = summary;
-    }
-    
-    nextStep('final');
-}
-
-function generateMissionSummary() {
-    let summary = '<h4>Souhrn vaší mise:</h4><ul>';
-    
-    if (missionData.visitedCafe) {
-        summary += '<li>✅ Navštívili jste kavárnu</li>';
-        if (missionData.drinkOrdered) {
-            summary += `<li>☕ Ochutnali jste ${missionData.drinkOrdered}</li>`;
-        }
-    }
-    
-    if (missionData.visitedPlayground) {
-        summary += '<li>✅ Prozkoumali jste rekreační sektor</li>';
-    }
-    
-    if (missionData.visitedGlamping) {
-        summary += '<li>✅ Navštívili jste glampingové moduly</li>';
-    }
-    
-    summary += '</ul>';
-    summary += '<p>Nyní máte kompletní představu o naší stanici!</p>';
-    
-    return summary;
-}
-
-// Additional step functions
-function explorePlayground() {
-    missionData.visitedPlayground = true;
-    missionData.choices.push('Prozkoumali rekreační sektor');
-    nextStep(5);
-}
-
-function exploreGlamping() {
-    missionData.visitedGlamping = true;
-    missionData.choices.push('Navštívili glampingové moduly');
-    nextStep(7);
-}
-
-// Auto-initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize first step
-    updateProgress(0);
-    updateMissionStatus(0);
-});
     </script>
 </body>
 </html>
